@@ -2,7 +2,7 @@
 
 Remove emoji from files by glob pattern.
 
-Right, why would I use your tool when I can use `sed`? Emoji are often sequences: 👨‍👩‍👧‍👦, `codepoint + ZWJ + codepoint + ZWJ + ` ... `noemoji` handles this correctly. sed does not fully understand grapheme clusters. You could always use `Perl`
+Right, why would I use your tool when I can use `sed`? Emoji are often sequences: , `codepoint + ZWJ + codepoint + ZWJ + ` ... `noemoji` handles this correctly. sed does not fully understand grapheme clusters. You could always use `Perl`
 ```
 perl -CSDA -pi -e 's/\p{Extended_Pictographic}//g' **/*.md
 ```

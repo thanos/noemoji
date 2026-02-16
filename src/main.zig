@@ -155,7 +155,8 @@ pub fn main() !void {
     }
 
     var config = Config{};
-    var target: ?[]const u8 = null;
+    var targets: std.ArrayList([]const u8) = .empty;
+    defer targets.deinit(allocator);
     
     var i: usize = 1;
     while (i < args.len) : (i += 1) {
@@ -179,7 +180,7 @@ pub fn main() !void {
             }
             config.output_dir = args[i];
         } else if (!std.mem.startsWith(u8, arg, "-")) {
-            target = arg;
+            try targets.append(allocator, arg);
         } else {
             std.debug.print("Unknown option: {s}\n", .{arg});
             printHelp();
@@ -187,20 +188,21 @@ pub fn main() !void {
         }
     }
 
-    if (target == null) {
+    if (targets.items.len == 0) {
         std.debug.print("Error: No file or pattern specified\n\n", .{});
         printHelp();
         return error.MissingTarget;
     }
 
-    const target_path = target.?;
-    
-    // Check if it's a glob pattern or a regular file
-    if (std.mem.indexOf(u8, target_path, "*") != null) {
-        // It's a glob pattern
-        try findAndProcessFiles(allocator, target_path, config);
-    } else {
-        // It's a single file
-        try processFile(allocator, target_path, config);
+    // Process each target (file or pattern)
+    for (targets.items) |target_path| {
+        // Check if it's a glob pattern or a regular file
+        if (std.mem.indexOf(u8, target_path, "*") != null) {
+            // It's a glob pattern
+            try findAndProcessFiles(allocator, target_path, config);
+        } else {
+            // It's a single file
+            try processFile(allocator, target_path, config);
+        }
     }
 }
