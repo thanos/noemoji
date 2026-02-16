@@ -6,8 +6,7 @@ Right, why would I use your tool when I can use `sed`? Emoji are often sequences
 ```
 perl -CSDA -pi -e 's/\p{Extended_Pictographic}//g' **/*.md
 ```
-
-or 
+I just find typing `noemoji` more fun!
 
 
 
