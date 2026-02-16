@@ -114,15 +114,6 @@ echo
 # Test 1: Help flag
 echo "Test Group: Help & Version"
 echo "───────────────────────────"
-
-# Debug: show binary info
-echo "DEBUG: Binary path: $BINARY"
-echo "DEBUG: Binary exists: $([ -f "$BINARY" ] && echo 'yes' || echo 'no')"
-echo "DEBUG: Binary executable: $([ -x "$BINARY" ] && echo 'yes' || echo 'no')"
-if [ -f "$BINARY" ]; then
-    echo "DEBUG: Binary info: $(file "$BINARY" 2>/dev/null || echo 'file command not available')"
-fi
-
 $BINARY --help > /dev/null 2>&1
 assert_success "Help flag works" || true
 
