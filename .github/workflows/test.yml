@@ -46,8 +46,14 @@ jobs:
       - name: Build optimized binary
         run: zig build -Doptimize=ReleaseFast
 
-      - name: Make scripts executable
+      - name: Verify binary was built
         run: |
+          ls -la zig-out/bin/
+          file zig-out/bin/noemoji || echo "Binary not found!"
+          
+      - name: Make everything executable
+        run: |
+          chmod +x zig-out/bin/noemoji
           chmod +x tests/integration_test.sh
           chmod +x scripts/*.sh
 
