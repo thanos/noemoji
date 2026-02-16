@@ -47,20 +47,20 @@ fn matchGlob(pattern: []const u8, filename: []const u8) bool {
         const ext = pattern[1..]; // include the dot
         return std.mem.endsWith(u8, filename, ext);
     }
-    
+
     // **/*.ext matches any file ending with .ext in any directory
     if (std.mem.startsWith(u8, pattern, "**/*.")) {
         const ext = pattern[4..]; // skip "**/*"
         return std.mem.endsWith(u8, filename, ext);
     }
-    
+
     // Exact match
     return std.mem.eql(u8, pattern, filename);
 }
 
 fn processFile(allocator: std.mem.Allocator, path: []const u8, config: Config) !void {
     const cwd = std.fs.cwd();
-    
+
     // Read file
     const data = cwd.readFileAlloc(allocator, path, 10_000_000) catch |err| {
         std.debug.print("Error reading file '{s}': {s}\n", .{ path, @errorName(err) });
@@ -71,7 +71,7 @@ fn processFile(allocator: std.mem.Allocator, path: []const u8, config: Config) !
     // Remove emoji
     const cleaned = try emoji.stripEmoji(allocator, data);
     defer allocator.free(cleaned);
-    
+
     // Check if file changed
     if (std.mem.eql(u8, data, cleaned)) {
         if (!config.dry_run) {
@@ -90,7 +90,7 @@ fn processFile(allocator: std.mem.Allocator, path: []const u8, config: Config) !
     if (config.backup) {
         const backup_path = try std.fmt.allocPrint(allocator, "{s}.bak", .{path});
         defer allocator.free(backup_path);
-        
+
         try cwd.writeFile(.{ .sub_path = backup_path, .data = data });
         std.debug.print("  Backed up to {s}\n", .{backup_path});
     }
@@ -101,12 +101,12 @@ fn processFile(allocator: std.mem.Allocator, path: []const u8, config: Config) !
         cwd.makeDir(out_dir) catch |err| {
             if (err != error.PathAlreadyExists) return err;
         };
-        
+
         // Get just the filename (not the path)
         const filename = std.fs.path.basename(path);
         const output_path = try std.fs.path.join(allocator, &[_][]const u8{ out_dir, filename });
         defer allocator.free(output_path);
-        
+
         try cwd.writeFile(.{ .sub_path = output_path, .data = cleaned });
         std.debug.print("✓ Cleaned {s} → {s}\n", .{ path, output_path });
     } else {
@@ -128,7 +128,7 @@ fn findAndProcessFiles(allocator: std.mem.Allocator, pattern: []const u8, config
 
     while (try walker.next()) |entry| {
         if (entry.kind != .file) continue;
-        
+
         if (matchGlob(pattern, entry.basename)) {
             found_any = true;
             try processFile(allocator, entry.path, config);
@@ -157,11 +157,11 @@ pub fn main() !void {
     var config = Config{};
     var targets: std.ArrayList([]const u8) = .empty;
     defer targets.deinit(allocator);
-    
+
     var i: usize = 1;
     while (i < args.len) : (i += 1) {
         const arg = args[i];
-        
+
         if (std.mem.eql(u8, arg, "-h") or std.mem.eql(u8, arg, "--help")) {
             printHelp();
             return;

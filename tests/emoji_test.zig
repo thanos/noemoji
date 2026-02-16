@@ -135,16 +135,16 @@ test "stripEmoji - very long string" {
     const allocator = testing.allocator;
     var input = std.ArrayList(u8).init(allocator);
     defer input.deinit();
-    
+
     // Create a long string with emoji
     var i: usize = 0;
     while (i < 1000) : (i += 1) {
         try input.appendSlice("Text 🎉 ");
     }
-    
+
     const result = try emoji.stripEmoji(allocator, input.items);
     defer allocator.free(result);
-    
+
     // Should have "Text  " repeated 1000 times
     try testing.expect(result.len == 6 * 1000); // "Text  " is 6 chars
 }

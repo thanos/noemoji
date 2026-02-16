@@ -1,8 +1,7 @@
 const std = @import("std");
 
 pub fn isEmoji(cp: u21) bool {
-    return
-        (cp >= 0x1F600 and cp <= 0x1F64F) or
+    return (cp >= 0x1F600 and cp <= 0x1F64F) or
         (cp >= 0x1F300 and cp <= 0x1F5FF) or
         (cp >= 0x1F680 and cp <= 0x1F6FF) or
         (cp >= 0x1F900 and cp <= 0x1F9FF) or
