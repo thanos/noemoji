@@ -1,0 +1,111 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.15.2
+
+      - name: Run unit tests
+        run: zig build test
+
+      - name: Run unit tests (ReleaseFast)
+        run: zig build test -Doptimize=ReleaseFast
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.15.2
+
+      - name: Build optimized binary
+        run: zig build -Doptimize=ReleaseFast
+
+      - name: Run integration tests
+        run: ./tests/integration_test.sh zig-out/bin/noemoji
+
+  coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.15.2
+
+      - name: Install kcov
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y kcov
+
+      - name: Build debug tests
+        run: zig build test -Doptimize=Debug
+
+      - name: Generate coverage
+        run: |
+          mkdir -p coverage
+          TEST_BINARY=$(find zig-out -name "test" -type f | head -1)
+          kcov --exclude-pattern=/usr,/lib \
+               --include-pattern=$(pwd)/src \
+               coverage \
+               $TEST_BINARY || true
+
+      - name: Upload coverage to GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 30
+
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Zig
+        uses: goto-bus-stop/setup-zig@v2
+        with:
+          version: 0.15.2
+
+      - name: Format check
+        run: |
+          zig fmt --check src/
+          zig fmt --check tests/
+          zig fmt --check build.zig
+
+      - name: Build check
+        run: |
+          zig build -Doptimize=Debug
+          zig build -Doptimize=ReleaseSafe
+          zig build -Doptimize=ReleaseFast
+          zig build -Doptimize=ReleaseSmall

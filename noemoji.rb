@@ -1,8 +1,8 @@
 class Noemoji < Formula
   desc "Remove emoji from files by glob pattern"
   homepage "https://github.com/thanos/noemoji"
-  url "https://github.com/thanos/noemoji/archive/refs/tags/v0.1.1.tar.gz"
-  sha256 "034a247711182c7f4b9c055c4df3a4b21625d27b26f50e9e12bbec3a59431fce"  # To be filled when creating a release
+  url "https://github.com/thanos/noemoji/archive/refs/tags/v0.1.2.tar.gz"
+  sha256 "72b30728f85025f97c8de3e0daefab326f0f7ee1605e61ff18d726292c4398cc"  # To be filled when creating a release
   license "MIT"
   head "https://github.com/thanos/noemoji.git", branch: "main"
 

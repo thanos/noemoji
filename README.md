@@ -24,15 +24,27 @@ Download the latest release for your platform from the [releases page](https://g
 ### Homebrew (macOS/Linux)
 
 ```bash
-# Install from local formula (for development)
-brew install --build-from-source ./noemoji.rb
-
-# Or once published to a tap
+# Once published to a tap
 brew tap thanos/tap
 brew install noemoji
 ```
 
 See [HOMEBREW.md](HOMEBREW.md) for detailed Homebrew installation instructions.
+
+#### Local Development Testing
+
+For local testing without Homebrew, just build and copy the binary:
+
+```bash
+zig build -Doptimize=ReleaseFast
+sudo cp zig-out/bin/noemoji /usr/local/bin/
+```
+
+Or add to your PATH:
+
+```bash
+export PATH="$(pwd)/zig-out/bin:$PATH"
+```
 
 ### Build from Source
 

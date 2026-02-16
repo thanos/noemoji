@@ -2,17 +2,38 @@
 
 ## Installing from Local Formula
 
-To install noemoji locally using Homebrew:
+**Note:** Homebrew 5.0+ requires formulae to be in a tap. Direct installation with `brew install ./formula.rb` is no longer supported.
+
+### Option 1: Create a Local Tap (Recommended for Testing)
 
 ```bash
-# Install directly from the formula file
-brew install --build-from-source ./noemoji.rb
-
-# Or create a local tap (recommended for development)
+# Create a local tap
 brew tap-new local/tap
-brew extract --version=0.1.0 noemoji local/tap
+
+# Copy the formula to the tap
 cp noemoji.rb $(brew --repository local/tap)/Formula/noemoji.rb
+
+# Install from your local tap
 brew install local/tap/noemoji
+
+# Uninstall when done testing
+brew uninstall noemoji
+brew untap local/tap
+```
+
+### Option 2: Install Binary Directly (Simpler for Development)
+
+```bash
+# Build optimized binary
+zig build -Doptimize=ReleaseFast
+
+# Install to /usr/local/bin
+sudo cp zig-out/bin/noemoji /usr/local/bin/
+
+# Or install to ~/.local/bin (no sudo needed)
+mkdir -p ~/.local/bin
+cp zig-out/bin/noemoji ~/.local/bin/
+export PATH="$HOME/.local/bin:$PATH"  # Add to ~/.zshrc or ~/.bashrc
 ```
 
 ## Installing from GitHub (after release)
