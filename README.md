@@ -1,13 +1,13 @@
 # noemoji
 
-### For those without emotion... Remove emoji from from your files in cold blood.
-
-
-
 
 <img width="400" height="400" alt="NoEmoji-lo" src="https://github.com/user-attachments/assets/4ba590c6-9474-4cc8-bead-9c4d6aa11daa" />
 
-
+For those without emotion… 🧊
+Eliminate every emoji 😐🚫 from your files 📁📄
+with surgical precision 🧬🔪
+and cold, merciless efficiency ❄️⚙️
+— leaving nothing behind but pure, silent text ⌨️⬛
 
 
 
