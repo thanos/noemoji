@@ -1,6 +1,6 @@
 # Homebrew Formula Implementation Summary
 
-## ✅ Completed Tasks
+##  Completed Tasks
 
 ### 1. Built ReleaseFast Binary
 - **Location**: `zig-out/bin/noemoji`
@@ -40,7 +40,7 @@ Automation script that:
 - Updates formula automatically
 - Provides next-step guidance
 
-## 📦 Files Created/Modified
+##  Files Created/Modified
 
 ```
 noemoji/
@@ -54,7 +54,7 @@ noemoji/
     └── noemoji                   # ReleaseFast binary (228KB)
 ```
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Local Testing
 ```bash
@@ -62,7 +62,7 @@ noemoji/
 brew install --build-from-source ./noemoji.rb
 
 # Test it works
-echo "Hello 👋 World 🌍" > test.txt
+echo "Hello  World " > test.txt
 noemoji test.txt
 cat test.txt  # Output: "Hello  World "
 ```
@@ -81,7 +81,7 @@ brew tap thanos/tap
 brew install noemoji
 ```
 
-## 📝 Formula Details
+##  Formula Details
 
 The Homebrew formula (`noemoji.rb`) includes:
 
@@ -92,7 +92,7 @@ The Homebrew formula (`noemoji.rb`) includes:
 - **License**: MIT (update if different)
 - **Homepage**: Ready for GitHub repository URL
 
-## 🎯 Next Steps
+##  Next Steps
 
 1. **Initialize Git repository** (if not done):
    ```bash
@@ -117,17 +117,17 @@ The Homebrew formula (`noemoji.rb`) includes:
    - Add formula to `Formula/` directory
    - Publish for easy installation
 
-## ✨ Formula Features
+##  Formula Features
 
-- ✅ ReleaseFast optimization (228KB binary)
-- ✅ Cross-platform support (macOS, Linux)
-- ✅ Automated testing
-- ✅ HEAD installation support for latest development version
-- ✅ Proper dependency management
-- ✅ Standard Homebrew conventions
-- ✅ Complete documentation
+-  ReleaseFast optimization (228KB binary)
+-  Cross-platform support (macOS, Linux)
+-  Automated testing
+-  HEAD installation support for latest development version
+-  Proper dependency management
+-  Standard Homebrew conventions
+-  Complete documentation
 
-## 🔧 Customization
+##  Customization
 
 To customize for your needs:
 
@@ -145,4 +145,4 @@ To customize for your needs:
    depends_on "some-dependency"
    ```
 
-All done! The Homebrew formula is ready for ReleaseFast builds. 🎉
+All done! The Homebrew formula is ready for ReleaseFast builds. 

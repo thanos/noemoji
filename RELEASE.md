@@ -94,7 +94,7 @@ brew test noemoji
 
 # Test the installed binary
 noemoji --help
-echo "Test 👋 emoji" > test.txt
+echo "Test  emoji" > test.txt
 noemoji test.txt
 cat test.txt  # Should show: "Test  emoji"
 

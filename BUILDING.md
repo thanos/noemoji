@@ -200,7 +200,7 @@ shasum -a 256 -c SHA256SUMS.txt  # macOS
 
 ```bash
 ./zig-out/bin/noemoji --version
-echo "Test 👋 emoji 🎉" > test.txt
+echo "Test  emoji " > test.txt
 ./zig-out/bin/noemoji test.txt
 cat test.txt  # Should show: "Test  emoji "
 ```

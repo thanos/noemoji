@@ -150,8 +150,8 @@ Replace `thanos` with your username in:
 
 ## Support Matrix
 
-✅ macOS (Intel & Apple Silicon)  
-✅ Linux (x86_64 & ARM64, static)  
-✅ Windows (x86_64)  
+ macOS (Intel & Apple Silicon)  
+ Linux (x86_64 & ARM64, static)  
+ Windows (x86_64)  
 
 All binaries use ReleaseFast optimization.
