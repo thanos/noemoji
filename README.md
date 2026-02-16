@@ -1,6 +1,15 @@
 # noemoji
 
-Remove emoji from files by glob pattern.
+### For those without emotion... Remove emoji from from your files in cold blood.
+
+
+
+
+<img width="640" height="640" alt="NoEmoji-lo" src="https://github.com/user-attachments/assets/4ba590c6-9474-4cc8-bead-9c4d6aa11daa" />
+
+
+
+
 
 Right, why would I use your tool when I can use `sed`? Emoji are often sequences: , `codepoint + ZWJ + codepoint + ZWJ + ` ... `noemoji` handles this correctly. sed does not fully understand grapheme clusters. You could always use `Perl`
 ```
