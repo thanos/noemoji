@@ -1,0 +1,11 @@
+.{
+    .name = .noemoji,
+    .version = "0.1.0",
+    .minimum_zig_version = "0.15.0",
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+    .fingerprint = 0xcf2e5466b0b6b025,
+}
